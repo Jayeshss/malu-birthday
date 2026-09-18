@@ -139,5 +139,6 @@
 :root {
   --font-geist-sans: "Helvetica Neue", Arial, sans-serif;
   --font-geist-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  --font-serif: Georgia, "Times New Roman", serif;
+  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-decorative: "Great Vibes", cursive;
 }
