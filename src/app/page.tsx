@@ -562,11 +562,11 @@ export default function BirthdayPage() {
           >
             <div className="w-12 h-px mx-auto mb-8" style={{ backgroundColor: C.gold }} />
             <p
-              className="text-xs tracking-[0.22em] uppercase mb-5"
-              style={{ color: C.textMuted, fontFamily: 'var(--font-geist-sans)' }}
-            >
-              For Maluti
-            </p>
+  className="text-sm sm:text-base mb-5"
+  style={{ color: C.textMuted, fontFamily: 'var(--font-serif)' }}
+>
+  എന്റെെ മാളൂട്ടിക്ക്, ❤️
+</p>
             <h1
               className="text-3xl sm:text-4xl md:text-5xl font-light mb-8"
               style={{ color: C.charcoal, fontFamily: 'var(--font-serif)', fontWeight: 500 }}
