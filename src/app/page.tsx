@@ -130,7 +130,7 @@ function IntroSection({ onEnterStory }: { onEnterStory: () => void }) {
   };
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center px-6 py-16" style={{ backgroundColor: C.bg }}>
+    <section className="min-h-screen flex flex-col items-center justify-center px-2 sm:px-6 py-8 sm:py-12 md:py-16" style={{ backgroundColor: C.bg }}>
       {/* Decorative top line */}
       <motion.div
         className="w-12 h-px mb-10"
@@ -152,7 +152,7 @@ function IntroSection({ onEnterStory }: { onEnterStory: () => void }) {
       </motion.h1>
 
       <motion.p
-        className="text-base sm:text-lg md:text-xl text-center mb-2"
+        className="text-lg sm:text-lg md:text-xl text-center mb-2"
         style={{ color: C.text, fontFamily: 'var(--font-geist-sans)' }}
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
@@ -162,7 +162,7 @@ function IntroSection({ onEnterStory }: { onEnterStory: () => void }) {
       </motion.p>
 
       <motion.p
-        className="text-sm sm:text-base text-center max-w-md mb-10"
+        className="text-base sm:text-base text-center max-w-lg mb-8 sm:mb-10 px-3"
         style={{ color: C.textLight, fontFamily: 'var(--font-geist-sans)' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -173,7 +173,7 @@ function IntroSection({ onEnterStory }: { onEnterStory: () => void }) {
 
       {/* 4-image Photo Carousel */}
       <motion.div
-        className="w-full max-w-2xl mx-auto mb-8"
+        className="w-[96vw] sm:w-full sm:max-w-2xl mx-auto mb-7"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2, duration: 0.9 }}
@@ -236,7 +236,7 @@ function IntroSection({ onEnterStory }: { onEnterStory: () => void }) {
 
       {/* Small tagline */}
       <motion.p
-        className="text-xs tracking-[0.15em] uppercase text-center mb-10"
+        className="text-[11px] sm:text-xs tracking-[0.13em] uppercase text-center mb-8 sm:mb-10 px-3"
         style={{ color: C.textMuted, fontFamily: 'var(--font-geist-sans)' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -248,7 +248,7 @@ function IntroSection({ onEnterStory }: { onEnterStory: () => void }) {
       {/* Enter storybook button */}
       <motion.button
         onClick={onEnterStory}
-        className="px-8 py-3 text-xs sm:text-sm tracking-[0.2em] uppercase border cursor-pointer transition-all duration-500 hover:tracking-[0.25em]"
+        className="px-9 py-3.5 text-sm sm:text-sm tracking-[0.18em] uppercase border cursor-pointer transition-all duration-500 hover:tracking-[0.23em]"
         style={{ fontFamily: 'var(--font-geist-sans)', color: C.charcoal, borderColor: C.divider, backgroundColor: 'transparent' }}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -321,8 +321,8 @@ function StorybookSection() {
   // Storybook intro overlay (Illustration Page)
   if (!started) {
     return (
-      <section className="min-h-screen flex flex-col items-center justify-center px-6 py-16" style={{ backgroundColor: C.bgCream }}>
-        <div className="text-center max-w-2xl w-full">
+      <section className="min-h-screen flex flex-col items-center justify-center px-2 sm:px-6 py-8 sm:py-12 md:py-16" style={{ backgroundColor: C.bgCream }}>
+        <div className="text-center w-full sm:max-w-2xl">
           <motion.div className="w-10 h-px mx-auto mb-8" style={{ backgroundColor: C.gold }} initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.3, duration: 0.8 }} />
 
           {/* Intro illustration image */}
@@ -335,12 +335,12 @@ function StorybookSection() {
             <img
               src={storyAsset('intro-01.jpg')}
               alt="Illustration — Intro"
-              className="w-full h-auto object-contain rounded-sm"
+              className="w-[98vw] sm:w-full max-w-none h-auto object-contain rounded-sm mx-auto"
             />
           </motion.div>
 
           <motion.h2
-            className="text-3xl sm:text-4xl md:text-5xl font-light leading-tight mb-5"
+            className="text-[2.15rem] sm:text-4xl md:text-5xl font-light leading-tight mb-4 sm:mb-5 px-2"
             style={{ color: C.charcoal, fontFamily: 'var(--font-serif)' }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -349,7 +349,7 @@ function StorybookSection() {
             {storybookIntro.heading}
           </motion.h2>
           <motion.p
-            className="text-sm sm:text-base mb-10"
+            className="text-base sm:text-base mb-8 sm:mb-10"
             style={{ color: C.textLight, fontFamily: 'var(--font-geist-sans)' }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -359,7 +359,7 @@ function StorybookSection() {
           </motion.p>
           <motion.button
             onClick={() => setStarted(true)}
-            className="px-7 py-2.5 text-xs tracking-[0.2em] uppercase border cursor-pointer transition-all duration-500 hover:tracking-[0.25em]"
+            className="px-8 py-3 text-sm sm:text-xs tracking-[0.17em] sm:tracking-[0.2em] uppercase border cursor-pointer transition-all duration-500 hover:tracking-[0.23em]"
             style={{ fontFamily: 'var(--font-geist-sans)', color: C.charcoal, borderColor: C.divider, backgroundColor: 'transparent' }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -600,7 +600,7 @@ export default function BirthdayPage() {
 
       {!hasEntered && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center px-6"
+          className="fixed inset-0 z-[100] flex items-center justify-center px-3 sm:px-6"
           style={{ backgroundColor: C.bg }}
         >
           <motion.div
@@ -617,7 +617,7 @@ export default function BirthdayPage() {
   എന്റെെ മാളൂട്ടിക്ക്, ❤️
 </p>
             <h1
-              className="text-3xl sm:text-4xl md:text-5xl font-light mb-8"
+              className="text-[2.25rem] sm:text-4xl md:text-5xl font-light mb-8 leading-tight"
               style={{ color: C.charcoal, fontFamily: 'var(--font-serif)', fontWeight: 500 }}
             >
               A little surprise is waiting for you
