@@ -530,13 +530,46 @@ function BirthdayWishSection() {
 export default function BirthdayPage() {
   // 0 = intro, 1 = storybook, 2 = birthday wish
   const [section, setSection] = useState(0);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+
+  const startMusic = () => {
+    if (!audioRef.current) return;
+    audioRef.current
+      .play()
+      .then(() => setIsMusicPlaying(true))
+      .catch(() => {});
+  };
+
+  const toggleMusic = () => {
+    if (!audioRef.current) return;
+
+    if (audioRef.current.paused) {
+      audioRef.current
+        .play()
+        .then(() => setIsMusicPlaying(true))
+        .catch(() => {});
+    } else {
+      audioRef.current.pause();
+      setIsMusicPlaying(false);
+    }
+  };
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: C.bg }}>
+      <audio ref={audioRef} loop preload="auto">
+        <source src={`${BASE_PATH}/maruvaarthai.mp3`} type="audio/mpeg" />
+      </audio>
+
       <AnimatePresence mode="wait">
         {section === 0 && (
           <motion.div key="intro" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }}>
-            <IntroSection onEnterStory={() => setSection(1)} />
+            <IntroSection
+              onEnterStory={() => {
+                startMusic();
+                setSection(1);
+              }}
+            />
           </motion.div>
         )}
         {section === 1 && (
@@ -565,6 +598,14 @@ export default function BirthdayPage() {
           ))}
         </div>
       )}
+
+      <button
+        onClick={toggleMusic}
+        className="fixed bottom-5 right-5 z-50 rounded-full bg-white/90 px-4 py-3 text-sm shadow-lg backdrop-blur cursor-pointer"
+        aria-label={isMusicPlaying ? 'Pause music' : 'Play music'}
+      >
+        {isMusicPlaying ? '♫ Pause' : '♫ Play'}
+      </button>
     </div>
   );
 }
