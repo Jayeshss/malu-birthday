@@ -146,7 +146,7 @@ function IntroSection({ onEnterStory }: { onEnterStory: () => void }) {
         initial={{ opacity: 0, y: 25 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 1.1, ease: 'easeOut' }}
-        style={{ color: C.charcoal, fontFamily: 'var(--font-geist-sans)' }}
+        style={{ color: C.charcoal, fontFamily: 'var(--font-decorative)', fontSize: 'clamp(3.2rem, 8vw, 6.5rem)', lineHeight: 1.15 }}
       >
         Happy Birthday, Maluti
       </motion.h1>
@@ -336,7 +336,7 @@ function StorybookSection() {
 
           <motion.h2
             className="text-3xl sm:text-4xl md:text-5xl font-light leading-tight mb-5"
-            style={{ color: C.charcoal, fontFamily: 'var(--font-geist-sans)' }}
+            style={{ color: C.charcoal, fontFamily: 'var(--font-serif)' }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 1 }}
@@ -407,7 +407,7 @@ function StorybookSection() {
                   {scene.date}
                 </p>
               )}
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-light mb-4 leading-snug" style={{ color: C.charcoal, fontFamily: 'var(--font-geist-sans)' }}>
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-light mb-4 leading-snug" style={{ color: C.charcoal, fontFamily: 'var(--font-serif)', fontWeight: 500 }}>
                 {scene.title}
               </h3>
               <p className="text-sm sm:text-base leading-[1.85]" style={{ color: C.text, fontFamily: 'var(--font-geist-sans)' }}>
@@ -459,7 +459,7 @@ function BirthdayWishSection() {
         {/* Heading */}
         <motion.h2
           className="text-3xl sm:text-4xl md:text-5xl font-light mb-8 leading-tight"
-          style={{ color: C.charcoal, fontFamily: 'var(--font-geist-sans)' }}
+          style={{ color: C.charcoal, fontFamily: 'var(--font-decorative)', fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1.15 }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 1 }}
@@ -582,7 +582,7 @@ export default function BirthdayPage() {
             </p>
             <h1
               className="text-3xl sm:text-4xl md:text-5xl font-light mb-8"
-              style={{ color: C.charcoal, fontFamily: 'var(--font-geist-sans)' }}
+              style={{ color: C.charcoal, fontFamily: 'var(--font-serif)', fontWeight: 500 }}
             >
               A little surprise is waiting for you
             </h1>
