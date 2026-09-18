@@ -400,20 +400,7 @@ function StorybookSection() {
               <SceneImage src={scene.image} alt={scene.title} />
             </motion.div>
 
-            {/* Scene text */}
-            <motion.div className="max-w-xl mx-auto text-center" {...fadeUp}>
-              {scene.date && (
-                <p className="text-[11px] tracking-[0.15em] uppercase mb-2.5" style={{ color: C.textMuted, fontFamily: 'var(--font-geist-sans)' }}>
-                  {scene.date}
-                </p>
-              )}
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-light mb-4 leading-snug" style={{ color: C.charcoal, fontFamily: 'var(--font-serif)', fontWeight: 500 }}>
-                {scene.title}
-              </h3>
-              <p className="text-sm sm:text-base leading-[1.85]" style={{ color: C.text, fontFamily: 'var(--font-geist-sans)' }}>
-                {scene.text}
-              </p>
-            </motion.div>
+            {/* Story text is already embedded in the illustration image. */}
           </motion.div>
         </AnimatePresence>
       </div>
