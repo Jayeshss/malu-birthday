@@ -530,6 +530,7 @@ function BirthdayWishSection() {
 export default function BirthdayPage() {
   // 0 = intro, 1 = storybook, 2 = birthday wish
   const [section, setSection] = useState(0);
+  const [hasEntered, setHasEntered] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
 
@@ -556,20 +557,59 @@ export default function BirthdayPage() {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: C.bg }} onPointerDown={() => { if (!isMusicPlaying) startMusic(); }}>
+    <div className="min-h-screen" style={{ backgroundColor: C.bg }}>
       <audio ref={audioRef} loop preload="auto">
         <source src={`${BASE_PATH}/maruvaarthai.mp3.mp3`} type="audio/mpeg" />
       </audio>
 
+      {!hasEntered && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center px-6"
+          style={{ backgroundColor: C.bg }}
+        >
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+          >
+            <div className="w-12 h-px mx-auto mb-8" style={{ backgroundColor: C.gold }} />
+            <p
+              className="text-xs tracking-[0.22em] uppercase mb-5"
+              style={{ color: C.textMuted, fontFamily: 'var(--font-geist-sans)' }}
+            >
+              For Maluti
+            </p>
+            <h1
+              className="text-3xl sm:text-4xl md:text-5xl font-light mb-8"
+              style={{ color: C.charcoal, fontFamily: 'var(--font-geist-sans)' }}
+            >
+              A little surprise is waiting for you
+            </h1>
+            <button
+              onClick={() => {
+                startMusic();
+                setHasEntered(true);
+              }}
+              className="px-8 py-3 text-xs sm:text-sm tracking-[0.2em] uppercase border cursor-pointer transition-all duration-500 hover:tracking-[0.25em]"
+              style={{
+                fontFamily: 'var(--font-geist-sans)',
+                color: C.charcoal,
+                borderColor: C.divider,
+                backgroundColor: 'transparent',
+              }}
+            >
+              Tap to the Surprise
+            </button>
+            <div className="w-12 h-px mx-auto mt-8" style={{ backgroundColor: C.gold }} />
+          </motion.div>
+        </div>
+      )}
+
       <AnimatePresence mode="wait">
         {section === 0 && (
           <motion.div key="intro" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }}>
-            <IntroSection
-              onEnterStory={() => {
-                startMusic();
-                setSection(1);
-              }}
-            />
+            <IntroSection onEnterStory={() => setSection(1)} />
           </motion.div>
         )}
         {section === 1 && (
@@ -599,13 +639,15 @@ export default function BirthdayPage() {
         </div>
       )}
 
-      <button
-        onClick={toggleMusic}
-        className="fixed bottom-5 right-5 z-50 rounded-full bg-white/90 px-4 py-3 text-sm shadow-lg backdrop-blur cursor-pointer"
-        aria-label={isMusicPlaying ? 'Pause music' : 'Play music'}
-      >
-        {isMusicPlaying ? '♫ Pause' : '♫ Play'}
-      </button>
+      {hasEntered && (
+        <button
+          onClick={toggleMusic}
+          className="fixed bottom-5 right-5 z-50 rounded-full bg-white/90 px-4 py-3 text-sm shadow-lg backdrop-blur cursor-pointer"
+          aria-label={isMusicPlaying ? 'Pause music' : 'Play music'}
+        >
+          {isMusicPlaying ? '♫ Pause' : '♫ Play'}
+        </button>
+      )}
     </div>
   );
 }
