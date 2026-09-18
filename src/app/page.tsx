@@ -277,6 +277,7 @@ function IntroSection({ onEnterStory }: { onEnterStory: () => void }) {
 function StorybookSection() {
   const [current, setCurrent] = useState(0);
   const [started, setStarted] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const total = scenes.length;
   const scene = scenes[current];
 
@@ -292,17 +293,21 @@ function StorybookSection() {
   useEffect(() => {
     if (!started) return;
     const onKey = (e: KeyboardEvent) => {
+      if (isFullscreen) {
+        if (e.key === 'Escape') setIsFullscreen(false);
+        return;
+      }
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goNext();
       if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goPrev();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [started, goNext, goPrev]);
+  }, [started, isFullscreen, goNext, goPrev]);
 
   // Swipe navigation
   const touchStartY = useRef(0);
   useEffect(() => {
-    if (!started) return;
+    if (!started || isFullscreen) return;
     const onTouchStart = (e: TouchEvent) => { touchStartY.current = e.touches[0].clientY; };
     const onTouchEnd = (e: TouchEvent) => {
       const diff = touchStartY.current - e.changedTouches[0].clientY;
@@ -311,7 +316,7 @@ function StorybookSection() {
     window.addEventListener('touchstart', onTouchStart, { passive: true });
     window.addEventListener('touchend', onTouchEnd, { passive: true });
     return () => { window.removeEventListener('touchstart', onTouchStart); window.removeEventListener('touchend', onTouchEnd); };
-  }, [started, goNext, goPrev]);
+  }, [started, isFullscreen, goNext, goPrev]);
 
   // Storybook intro overlay (Illustration Page)
   if (!started) {
@@ -380,7 +385,7 @@ function StorybookSection() {
       </div>
 
       {/* Scene content */}
-      <div className="flex-1 flex flex-col items-center justify-center px-4 md:px-8 py-10 md:py-16">
+      <div className="flex-1 flex flex-col items-center justify-center px-1 sm:px-4 md:px-8 py-4 sm:py-8 md:py-12">
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
@@ -388,17 +393,34 @@ function StorybookSection() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, ease: 'easeInOut' }}
-            className="w-full max-w-4xl"
+            className="w-full max-w-5xl"
           >
             {/* Progress number */}
-            <p className="text-xs tracking-[0.15em] uppercase text-center mb-6" style={{ color: C.textMuted, fontFamily: 'var(--font-geist-sans)' }}>
+            <p className="text-[11px] sm:text-xs tracking-[0.15em] uppercase text-center mb-3 sm:mb-5" style={{ color: C.textMuted, fontFamily: 'var(--font-geist-sans)' }}>
               {String(current + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
             </p>
 
-            {/* Landscape image */}
-            <motion.div className="mb-6 md:mb-8" {...slowReveal}>
+            {/* Landscape image — tap to view full screen */}
+            <motion.div
+              className="mb-3 sm:mb-5 md:mb-6 cursor-zoom-in"
+              {...slowReveal}
+              onClick={() => setIsFullscreen(true)}
+              role="button"
+              tabIndex={0}
+              aria-label="View illustration full screen"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') setIsFullscreen(true);
+              }}
+            >
               <SceneImage src={scene.image} alt={scene.title} />
             </motion.div>
+
+            <p
+              className="sm:hidden text-[10px] tracking-[0.12em] uppercase text-center"
+              style={{ color: C.textMuted, fontFamily: 'var(--font-geist-sans)' }}
+            >
+              Tap image to view full screen
+            </p>
 
             {/* Story text is already embedded in the illustration image. */}
           </motion.div>
@@ -406,8 +428,8 @@ function StorybookSection() {
       </div>
 
       {/* Navigation */}
-      <div className="px-6 pb-8 pt-4">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
+      <div className="px-4 sm:px-6 pb-7 pt-3">
+        <div className="max-w-5xl mx-auto flex items-center justify-between">
           <button
             onClick={goPrev}
             className={`text-xs tracking-[0.15em] uppercase transition-opacity duration-300 cursor-pointer ${current > 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
@@ -426,6 +448,33 @@ function StorybookSection() {
           </button>
         </div>
       </div>
+
+      <AnimatePresence>
+        {isFullscreen && (
+          <motion.div
+            className="fixed inset-0 z-[120] flex items-center justify-center bg-black/95 p-1 sm:p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setIsFullscreen(false)}
+          >
+            <button
+              onClick={() => setIsFullscreen(false)}
+              className="absolute top-4 right-4 z-[121] w-10 h-10 rounded-full bg-white/15 text-white text-2xl leading-none flex items-center justify-center cursor-pointer"
+              aria-label="Close full screen image"
+            >
+              ×
+            </button>
+            <img
+              src={scene.image}
+              alt={scene.title}
+              className="max-w-[99vw] max-h-[96vh] w-auto h-auto object-contain"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
