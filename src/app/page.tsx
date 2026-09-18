@@ -558,7 +558,7 @@ export default function BirthdayPage() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: C.bg }}>
       <audio ref={audioRef} loop preload="auto">
-        <source src={`${BASE_PATH}/maruvaarthai.mp3`} type="audio/mpeg" />
+        <source src={`${BASE_PATH}/maruvaarthai.mp3.mp3`} type="audio/mpeg" />
       </audio>
 
       <AnimatePresence mode="wait">
